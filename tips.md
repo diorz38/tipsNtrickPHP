@@ -35,3 +35,27 @@ $firstDayofPreviousMonth = Carbon::now()->startOfMonth()->subMonthsNoOverflow()-
 
 $lastDayofPreviousMonth = Carbon::now()->subMonthsNoOverflow()->endOfMonth()->toDateString();
 ```
+# Dropdown menu with alpineJS
+```
+<div x-data="{ open: false, openedWithKeyboard: false }" class="relative"
+@keydown.esc.window="open = false, openedWithKeyboard = false">
+  <button type="button"
+      class="p-2 text-gray-500 rounded-lg sm:flex hover:text-gray-900 hover:bg-gray-100"
+      @click="open = ! open"
+      aria-haspopup="true" @keydown.space.prevent="openedWithKeyboard = true"
+      @keydown.enter.prevent="openedWithKeyboard = true"
+      @keydown.down.prevent="openedWithKeyboard = true"
+      :class="open || openedWithKeyboard ? 'text-neutral-900' : 'text-neutral-600'"
+      :aria-expanded="open || openedWithKeyboard">
+      <span class="sr-only">Apps</span>
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"></svg>
+  </button>
+
+  <div class="fixed right-0 top-10 z-99 max-w-sm my-4 overflow-hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg"
+       x-cloak x-show="open || openedWithKeyboard" x-transition x-trap="openedWithKeyboard"
+       @click.outside="open = false, openedWithKeyboard = false"
+       @keydown.down.prevent="$focus.wrap().next()" @keydown.up.prevent="$focus.wrap().previous()"
+       role="menu">
+       <div class="block px-4 py-2 text-base font-medium text-center text-gray-700 bg-gray-50">Apps</div>
+  </div>
+```
