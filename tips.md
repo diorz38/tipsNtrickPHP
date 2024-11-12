@@ -29,3 +29,9 @@ die();
   })"
 >Apply</button>
 ```
+#Get Carbon lastDay and firstDay of Month
+```
+$firstDayofPreviousMonth = Carbon::now()->startOfMonth()->subMonthsNoOverflow()->toDateString();
+
+$lastDayofPreviousMonth = Carbon::now()->subMonthsNoOverflow()->endOfMonth()->toDateString();
+```
