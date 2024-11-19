@@ -59,3 +59,65 @@ $lastDayofPreviousMonth = Carbon::now()->subMonthsNoOverflow()->endOfMonth()->to
        <div class="block px-4 py-2 text-base font-medium text-center text-gray-700 bg-gray-50">Apps</div>
   </div>
 ```
+# Detect Mobile or Desktop
+in AppServiceProvider
+```
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+use Illuminate\Pagination\Paginator;
+
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Facades\View;
+
+use Illuminate\Support\Facades\DB;
+use Blade;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+       Blade::if('detect', function ($value) {
+      if(!empty($_SERVER['HTTP_USER_AGENT'])){
+   $user_ag = $_SERVER['HTTP_USER_AGENT'];
+   if(preg_match('/(Mobile|Android|Tablet|GoBrowser|[0-9]x[0-9]*|uZardWeb\/|Mini|Doris\/|Skyfire\/|iPhone|Fennec\/|Maemo|Iris\/|CLDC\-|Mobi\/)/uis',$user_ag)){
+      return 'mobile';
+   };
+    }else{
+    return 'desktop';
+    }
+});
+}
+```
+and use it in Blade:
+```
+@detect("mobile")
+class="mb-3 col-6 "
+@else
+class="mb-3 col-3 " 
+@enddetect
+
+    >
+    <label for="exampleInputEmail1" class="form-label">Category</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+```
