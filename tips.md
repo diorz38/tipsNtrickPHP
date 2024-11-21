@@ -121,3 +121,58 @@ class="mb-3 col-3 "
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
   </div>
 ```
+
+# USe SpatieRolePermission in Livewire
+1. create Trait
+```
+<?php
+
+
+namespace App\Traits\Admin;
+
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Exceptions\UnauthorizedException;
+
+trait RoleOrPermissionSpatie
+{
+    public function handlePermission($roleOrPermission)
+    {
+        $authGuard = Auth::guard();
+        if ($authGuard->guest()) {
+            throw UnauthorizedException::notLoggedIn();
+        }
+
+        $rolesOrPermissions = is_array($roleOrPermission)
+            ? $roleOrPermission
+            : explode('|', $roleOrPermission);
+
+        if (! $authGuard->user()->hasAnyRole($rolesOrPermissions) && ! $authGuard->user()->hasAnyPermission($rolesOrPermissions)) {
+            throw UnauthorizedException::forRolesOrPermissions($rolesOrPermissions);
+        }
+    }
+}
+
+```
+2. in your component add those Trait
+```
+namespace App\Http\Livewire\Admin;
+
+use Livewire\Component;
+...
+...
+use App\Traits\Admin\RoleOrPermissionSpatie;
+
+
+
+class Programas extends Component
+{
+    use RoleOrPermissionSpatie;
+
+    public function __construct()
+    {
+      $this->handlePermission('role1|role2|permission1');
+    }
+}
+
+
+```
