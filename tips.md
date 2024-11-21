@@ -176,3 +176,45 @@ class Programas extends Component
 
 
 ```
+# Use flatpikr in blade component with alpineJS
+```
+<div wire:ignore x-data="datepicker(@entangle($attributes->wire('model')))" class="relative">    
+    <x-input class="mt-1 block w-full" x-ref="myDatepicker" x-model="value" id="{{ rand() }}" />    
+</div>
+
+@once
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('datepicker', (model) => ({
+                value: model,
+                init(){
+                    this.pickr = flatpickr(this.$refs.myDatepicker, {dateFormat:'d/m/Y'})
+
+                    this.$watch('value', function(newValue){
+                        this.pickr.setDate(newValue);
+                    }.bind(this));
+                },
+                reset(){
+                    this.value = null;
+                }
+            }))
+        })
+    </script>
+@endonce
+```
+```
+<div class="mb-5" wire:ignore>        
+    <x-label value="Date" />
+    <x-datepicker wire:model="date" />
+    <x-input-error for="date" class="mt-2" />
+</div>  
+
+<div class="mb-5" wire:ignore>        
+    <x-label value="Today" />
+    <x-datepicker wire:model="today" />
+    <x-input-error for="today" class="mt-2" />
+</div>
+```
