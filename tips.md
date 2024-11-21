@@ -122,7 +122,7 @@ class="mb-3 col-3 "
   </div>
 ```
 
-# USe SpatieRolePermission in Livewire
+# Use SpatieRolePermission in Livewire
 1. create Trait
 ```
 <?php
