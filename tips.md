@@ -218,3 +218,10 @@ class Programas extends Component
     <x-input-error for="today" class="mt-2" />
 </div>
 ```
+
+# Embeded MS Word (DOC/DOCX) in html or Blade
+
+use offoiceappa aspx in iframe:
+```
+<iframe src='https://view.officeapps.live.com/op/embed.aspx?src=http://www.learningaboutelectronics.com/Articles/NP-modernization-act-new-york-state.doc' width='80%' height='565px' frameborder='0'> </iframe>
+```
