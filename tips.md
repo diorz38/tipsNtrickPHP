@@ -225,3 +225,14 @@ use offoiceappa aspx in iframe:
 ```
 <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=http://www.learningaboutelectronics.com/Articles/NP-modernization-act-new-york-state.doc' width='80%' height='565px' frameborder='0'> </iframe>
 ```
+
+# How to embed PDF viewer in HTML
+You could try embedding the PDF file in an 'object' tag. Here is an example of how to do this:
+
+Example of adding a PDF file to the HTML by using the 'object' tag:
+```
+    <h1>PDF Example by Object Tag</h1>
+    <object data="/uploads/media/default/0001/01/540cb75550adf33f281f29132dddd14fded85bfc.pdf" type="application/pdf" width="100%" height="500px">
+      <p>Unable to display PDF file. <a href="/uploads/media/default/0001/01/540cb75550adf33f281f29132dddd14fded85bfc.pdf">Download</a> instead.</p>
+    </object>
+```
