@@ -236,3 +236,15 @@ Example of adding a PDF file to the HTML by using the 'object' tag:
       <p>Unable to display PDF file. <a href="/uploads/media/default/0001/01/540cb75550adf33f281f29132dddd14fded85bfc.pdf">Download</a> instead.</p>
     </object>
 ```
+
+# add html to table cell in phpword TemplateProcessor (untested)
+
+```
+$value = '<b>TEST</b>';
+$wordTable = new \PhpOffice\PhpWord\Element\Table();
+$wordTable->addRow();
+$cell = $wordTable->addCell();                                
+ \PhpOffice\PhpWord\Shared\Html::addHtml($cell,$value);
+                
+$templateProcessor->setComplexBlock($block_id, $wordTable);
+```
