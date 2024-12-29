@@ -267,4 +267,4 @@ if (env('APP_FORCE_HTTPS', true)) {
     \Illuminate\Support\Facades\URL::forceScheme('https');
 }
 ```
-dont forget to add APP_FORCE_HTTPS=true or flase in .env file
+dont forget to add APP_FORCE_HTTPS=true in idx .env file, set false in local machine
