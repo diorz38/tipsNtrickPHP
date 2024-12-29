@@ -248,3 +248,23 @@ $cell = $wordTable->addCell();
                 
 $templateProcessor->setComplexBlock($block_id, $wordTable);
 ```
+
+# Google IDX: for laravel
+
+When php artisan serve wont start and says port is already in-use, this may be the solution:
+In bootstrap/app.php add:
+
+```
+->withMiddleware(function (Middleware $middleware) {
+        $middleware->trustProxies(at: ['127.0.0.1']);
+    })
+```
+
+and in AppServiceProvider, add:
+
+```
+if (env('APP_FORCE_HTTPS', true)) {
+    \Illuminate\Support\Facades\URL::forceScheme('https');
+}
+```
+dont forget to add APP_FORCE_HTTPS=true or flase in .env file
